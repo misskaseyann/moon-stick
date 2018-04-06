@@ -4,15 +4,18 @@ export default class Crystal {
         const crystalGroup = new THREE.Group();
 
         const crystalGeo = new THREE.DodecahedronGeometry(2, 1);
-        const crystalMat = new THREE.MeshPhongMaterial({color: 0xffffff, shading: THREE.FlatShading});
+        const crystalMat = new THREE.MeshPhongMaterial({
+            shininess: 100,
+            color: 0xffffff,
+            specular: 0xffffff,
+            transparent: true,
+            side: THREE.BackSide,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            shading: THREE.FlatShading});
         const crystal = new THREE.Mesh(crystalGeo, crystalMat);
         crystal.castShadow = true;
         crystalGroup.add(crystal);
-
-        // const wireGeo = new THREE.EdgesGeometry(crystal.geometry);
-        // const wireMat = new THREE.LineBasicMaterial({color: 0x969696, linewidth: 1});
-        // const wireframe = new THREE.LineSegments(wireGeo, wireMat);
-        // crystal.add(wireframe);
 
         return crystalGroup;
     }

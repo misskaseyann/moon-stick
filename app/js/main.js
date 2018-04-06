@@ -18,6 +18,7 @@ export default class App {
     this.renderer.gammaOutput = true;
 
     this.scene = new THREE.Scene();
+    this.scene.fog = new THREE.Fog(0x00aaff, 1000, 10000);
 
     this.camera = new THREE.PerspectiveCamera(35, 4/3, 1, 1000);
     this.camera.position.set(65, 8, -10);
