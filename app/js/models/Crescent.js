@@ -5,10 +5,12 @@ export default class Crescent {
         const loader = new THREE.JSONLoader();
         loader.load('./app/blender/moon-test2.json',
             function(geometry) {
-            const material = new THREE.MeshPhongMaterial({
-                color: 0xffce23, diffuse: 0x050505, shininess: 83.19
+            const material = new THREE.MeshPhysicalMaterial({
+                color: 0xffce23, roughness: 0.35, metalness: 1,
+                reflectivity: 0.5
             });
             const crescent = new THREE.Mesh(geometry, material);
+            crescent.castShadow = true;
             crescentgroup.add(crescent);
             });
         return crescentgroup;

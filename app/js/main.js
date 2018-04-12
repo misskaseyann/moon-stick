@@ -2,8 +2,7 @@ import * as THREE from 'three';
 // import orbit from 'three-orbit-controls';
 // const OrbitControls = orbit(THREE);
 import TrackballControls from 'three-trackballcontrols';
-import Crystal from './models/Crystal';
-import Crescent from './models/Crescent';
+import Wand from './models/Wand';
 
 export default class App {
   constructor() {
@@ -22,7 +21,6 @@ export default class App {
 
     this.camera = new THREE.PerspectiveCamera(35, 4/3, 1, 1000);
     this.camera.position.set(65, 8, -10);
-    //this.camera.position.z = 100;
 
     this.tracker = new TrackballControls(this.camera);
     this.tracker.rotateSpeed = 2.0;
@@ -47,21 +45,36 @@ export default class App {
 
     this.scene.add(this.spotLight);
 
-    this.groundGeo = new THREE.BoxGeometry(2000, 1, 2000);
-    this.groundMat = new THREE.MeshPhongMaterial({color: 0x808080, dithering: true});
-    this.ground = new THREE.Mesh(this.groundGeo, this.groundMat);
-    this.ground.position.set(0, -1, 0);
-    this.ground.receiveShadow = true;
+    this.wand =  new Wand();
+    this.wand.position.set(-10, 0, 0);
+    this.scene.add(this.wand);
 
-    this.scene.add(this.ground);
+    // moon
+    this.moontex = THREE.ImageUtils.loadTexture("app/blender/moon.jpg");
+    this.moonGeo = new THREE.SphereGeometry(100, 100, 100);
+    this.moonMat = new THREE.MeshPhongMaterial();
+    this.moonMat.map = this.moontex;
+    this.moon = new THREE.Mesh(this.moonGeo, this.moonMat);
+    this.moon.material.map.repeat.set(1,1);
+    this.moon.receiveShadow = true;
+    this.moon.position.set(0, -100, 0);
+    this.moon.rotateX(300);
+    this.moon.material.map.wrapT = THREE.RepeatWrapping;
 
-    this.crystal = new Crystal();
-    this.crystal.position.set(40, 2, 0);
-    this.scene.add(this.crystal);
+    this.scene.add(this.moon);
 
-    this.crescent = new Crescent();
-    this.crescent.position.set(30, 10, 0);
-    this.scene.add(this.crescent);
+    // space background
+    this.spacetex = THREE.ImageUtils.loadTexture("app/blender/space.jpg");
+    this.spacesphereGeo = new THREE.SphereGeometry(500, 500, 500);
+    this.spacesphereMat = new THREE.MeshPhongMaterial();
+    this.spacesphereMat.map = this.spacetex;
+    this.spacesphere = new THREE.Mesh(this.spacesphereGeo, this.spacesphereMat);
+    // space needs to be double sided as camera is within the sphere
+    this.spacesphere.material.side = THREE.DoubleSide;
+    this.spacesphere.material.map.wrapS = THREE.RepeatWrapping;
+    this.spacesphere.material.map.wrapT = THREE.RepeatWrapping;
+    this.spacesphere.material.map.repeat.set(5,3);
+    this.scene.add(this.spacesphere);
 
     window.addEventListener('resize', () => this.resizeHandler());
     this.resizeHandler();
@@ -70,6 +83,7 @@ export default class App {
 
   render() {
     this.renderer.render(this.scene, this.camera);
+    this.wand.rotate(1);
     this.tracker.update();
     requestAnimationFrame(() => this.render());
   }
