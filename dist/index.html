@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    Sailor Moon - Moon Stick
+  </title>
+</head>
+<style>
+  html {
+    height: 100%;
+  }
+  body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  #container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: black;
+  }
+  #myDIV {
+    font-family: Helvetica,sans-serif;
+    font-size: 15px;
+    width: 100%;
+    padding: 50px 0;
+    text-align: left;
+    background-color: lightblue;
+    margin-top: 10px;
+    column-count: 3;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<body>
+<button onclick="myFunction()">TOGGLE CONTROLS</button>
+
+<div id="myDIV">
+  <b>rotate wand:</b> O, P, K, L, N<br>
+  <b>move wand:</b> W, S, A, D, Q, E<br>
+  <b>animation toggle:</b> Space Bar<br>
+  <b>animation speed:</b> L/R Arrow Keys<br>
+  <b>ambient/spotlight toggle:</b> U/D Arrow Keys<br>
+  <b>spotlight position:</b> 1, 2, 3, 4<br>
+  <b>move camera:</b> T, G<br>
+  <b>rotate camera:</b> R, Y, F, H, V, B<br>
+  Based on the Sailor Moon toys from the 90s.<br>
+</div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+    <div id="container">
+      <canvas id="mycanvas"></canvas>
+  </div>
+
+<script type="text/javascript" src="bundle.js"></script></body>
+
+</html>
