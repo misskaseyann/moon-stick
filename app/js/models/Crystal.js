@@ -2,7 +2,6 @@ import * as THREE from 'three';
 export default class Crystal extends THREE.Group {
     constructor() {
         super();
-
         const crystalGeo = new THREE.DodecahedronGeometry(1, 1);
         const crystalMat = new THREE.MeshPhongMaterial({
             shininess: 100,

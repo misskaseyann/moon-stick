@@ -10,5 +10,6 @@ export default class Stem extends THREE.Group {
         this.stem = new THREE.Mesh(this.stemGeo, this.stemMat);
         this.stem.castShadow = true;
         this.add(this.stem);
+        this.stem.matrixAutoUpdate = false;
     }
 }
